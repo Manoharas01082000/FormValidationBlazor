@@ -1,0 +1,48 @@
+﻿@page "/counter"
+@using FormValidationBlazor.Data
+@using FormValidationBlazor.Service
+
+<PageTitle>Student Detailes</PageTitle>
+<h1>Student Detiles</h1>
+
+<EditForm Model="@student" OnValidSubmit="@Save">
+    <DataAnnotationsValidator/>
+    <ValidationSummary/>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Name:</label>
+        </div>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="student.Name" placehoder="Type Student Name"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>Roll:</label>
+        </div>
+        <div class="col-md-4">
+            <InputText class="form-control" @bind-Value="student.Roll" placehoder="Type Student Roll" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+   
+        </div>
+        <div class="col-md-4">
+            <input type="submit" class="btn btn-primary" value="Save"/>
+        </div>
+    </div>
+</EditForm>
+
+
+@code {
+    public Student student { get; set; } = new Student();
+    private void Save()
+    {
+        StudentService studentService = new StudentService();
+        studentService.Save(student);
+        student = new Student();
+
+    }
+
+}
